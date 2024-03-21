@@ -9,6 +9,6 @@ Students are expected to:
 Student Info
 =========================
 
-* Student Name: USTH ICT1
+* Student Name: Vu Bang Linh
 * Student ID: Not-Vietnamese
 * Student Group ID: Not-for-now
