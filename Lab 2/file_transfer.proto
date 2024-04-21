@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package filetransfer;
+
+// Define the FileTransfer service with two RPC methods: SendFile and ReceiveFile
+service FileTransfer {
+    rpc SendFile(FileRequest) returns (FileResponse) {}
+    rpc ReceiveFile(FileChunk) returns (Empty) {}
+}
+
+// Message to request file transfer, contains filename and content
+message FileRequest {
+    string filename = 1;
+    bytes content = 2;
+}
+
+// Response indicating success status of file transfer
+message FileResponse {
+    bool success = 1;
+}
+
+// Message containing chunk of file content
+message FileChunk {
+    bytes content = 1;
+}
+
+// Empty message
+message Empty {}
