@@ -1,20 +1,30 @@
-# Function to read paths from files
-def read_paths_from_files(file_paths):
-    paths = []
-    for file_path in file_paths:
-        with open(file_path, "r") as file:
-            paths.extend(file.read().splitlines())
-    return paths
+import os
+
+def find_files(file_name, search_path="C:/"):
+    found_file_paths = []
+    for root, dirs, files in os.walk(search_path):
+        for file in files:
+            if file == file_name:
+                found_file_paths.append(os.path.join(root, file))
+    return found_file_paths
 
 
-# Sample input file paths (one for each laptop)
-file_paths = ["laptop1.txt", "laptop2.txt", "laptop3.txt"]
+file_name_to_find = input("Enter the file name to find: ")
+found_file_paths = find_files(file_name_to_find)
 
-# Read paths from files
-input_data = read_paths_from_files(file_paths)
+if found_file_paths:
+    print("File(s) found:")
+    for file_path in found_file_paths:
+        file_path = file_path.replace("\\", "/")
+        print(file_path)
+else:
+    print("No file(s) found.")
 
 # Map: Split each path into its components and calculate the length of each path
-mapped_data = [(path.split("/"), len(path.split("/"))) for path in input_data]
+# I use os.sep to represent the path separator character (\ on Windows, / on Unix-like systems) when splitting the paths
+mapped_data = [
+    (path.split(os.sep), len(path.split(os.sep))) for path in found_file_paths
+]
 
 # Reduce: Find the longest path(s)
 longest_path = max(mapped_data, key=lambda x: x[1])
